@@ -1,6 +1,7 @@
 # blog
 
-- 一个基于 node 和 MongoDB 实现的一个 blog, 采用前后端分离。
+- 一个基于 node 和 MongoDB 实现的一个 blog, 采用混合开发。
+- 运用：nodejs、MongoDB、JQuery、bootstrap
 
 ## 1. 目录结构
 
