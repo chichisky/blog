@@ -15,7 +15,7 @@ router.get('/register', (req, res) => {
   res.render('register.html')
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
   var body = req.body;
   try {
     if (await User.findOne({
@@ -53,11 +53,8 @@ router.post('/register', async (req, res) => {
     });
 
 
-  } catch (error) {
-    return res.status(500).json({
-      err_code: 500,
-      message: error.message
-    })
+  } catch (err) {
+    return next(err)
   }
 
 });
@@ -66,7 +63,7 @@ router.get('/login', (req, res) => {
   res.render('login.html')
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   var body = req.body;
   body.password = md5(md5(body.password));
   try {
@@ -88,18 +85,15 @@ router.post('/login', (req, res) => {
       })
     })
 
-  } catch (error) {
-    return res.status(500).json({
-      err_code: 500,
-      message: error.message
-    })
+  } catch (err) {
+    return next(err)
   }
 });
 
 router.get('/logout', (req, res) => {
-
+  //清空 session
   req.session.user = null;
-
+  // 重定向
   res.redirect('/login')
 });
 

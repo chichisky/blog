@@ -26,6 +26,20 @@ app.engine('html', require('express-art-template'));
 // 挂载路由
 app.use(router);
 
+
+// 定义 404 错误页面
+app.use((req, res)=> {
+  res.render('404.html')
+})
+
+//配置错误全局处理中间件
+app.use((err, req, res, next) => {
+  return res.status(200).json({
+    err_code: 500,
+    message: err.message
+  })
+})
+
 // 监听端口并开启服务
 app.listen(3000, () => {
   console.log("runing...");
